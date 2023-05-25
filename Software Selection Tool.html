@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AMSSx</title>
+</head>
+<body>
+  <h1>Additive Manufacturing Simulation Software Selector</h1>
+
+  <form>
+    <fieldset>
+      <legend>Process:</legend>
+      <label><input type="checkbox" name="process" value="material extrusion"> Material Extrusion</label><br>
+      <label><input type="checkbox" name="process" value="powder bed fusion"> Powder Bed Fusion</label><br>
+      <label><input type="checkbox" name="process" value="material jetting"> Material Jetting</label><br>
+      <label><input type="checkbox" name="process" value="binder jetting"> Binder Jetting</label><br>
+      <label><input type="checkbox" name="process" value="photopolymerization"> Photopolymerization</label><br>
+      <label><input type="checkbox" name="process" value="sheet lamination"> Sheet Lamination</label><br>
+      <label><input type="checkbox" name="process" value="direct energy deposition"> Direct Energy Deposition</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Material:</legend>
+      <label><input type="checkbox" name="material" value="plastic"> Plastic</label><br>
+      <label><input type="checkbox" name="material" value="metal"> Metal</label><br>
+      <label><input type="checkbox" name="material" value="ceramic"> Ceramic</label><br>
+      <label><input type="checkbox" name="material" value="composite"> Composite</label><br>
+      <label><input type="checkbox" name="material" value="biomaterials"> Biomaterials</label><br>
+      <label><input type="checkbox" name="material" value="other"> Other</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Accuracy:</legend>
+      <label><input type="checkbox" name="accuracy" value="high"> High</label><br>
+      <label><input type="checkbox" name="accuracy" value="medium"> Medium</label><br>
+      <label><input type="checkbox" name="accuracy" value="low"> Low</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Computation Time:</legend>
+      <label><input type="checkbox" name="computation" value="small"> Small</label><br>
+      <label><input type="checkbox" name="computation" value="medium"> Medium</label><br>
+      <label><input type="checkbox" name="computation" value="large"> Large</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>License:</legend>
+      <label><input type="checkbox" name="license" value="free"> Free</label><br>
+      <label><input type="checkbox" name="license" value="paid"> Paid</label><br>
+      <label><input type="checkbox" name="license" value="trial"> Trial</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Platform:</legend>
+      <label><input type="checkbox" name="platform" value="windows"> Windows</label><br>
+      <label><input type="checkbox" name="platform" value="linux"> Linux</label><br>
+      <label><input type="checkbox" name="platform" value="mac"> Mac</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Technical Support:</legend>
+      <label><input type="checkbox" name="technical support" value="online"> Online</label><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Training:</legend>
+      <label><input type="checkbox" name="training" value="documentation"> Documentation</label><br>
+      <label><input type="checkbox" name="training" value="webinairs"> Webinairs</label><br>
+    </fieldset>
+
+    <input type="button" value="Find software" onclick="findSoftware()">
+    <input type="button" value="Clear selected" onclick="resetForm()">
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    const softwareList = [
+      {
+        name: "Simufact Additive",
+        characteristics: {
+          process: ["powder bed fusion"],
+          material: ["metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux", "mac"]
+        }
+      },
+      {
+        name: "Ansys Additive Print",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["metal", "plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Flow 3D",
+        characteristics: {
+          process: ["photopolymerization", "material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux"]
+        }
+      },
+      {
+        name: "ESI Group",
+        characteristics: {
+          process: ["powder bed fusion", "material extrusion"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Digimat AM",
+        characteristics: {
+          process: ["powder bed fusion", "material extrusion"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Amphyon",
+        characteristics: {
+          process: ["powder bed fusion"],
+          material: ["metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Simulia",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Hyperworks",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux"]
+        }
+      },
+      {
+        name: "Siemens NX",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux"]
+        }
+      },
+      {
+        name: "Autodesk Netfabb",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux"]
+        }
+      },
+      {
+        name: "Materialise Magics",
+        characteristics: {
+          process: ["photopolymerization"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Rhino 3D",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "mac"]
+        }
+      },
+      {
+        name: "Stratasys Insight",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Abaqus",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Stratasys Insight",
+        characteristics: {
+          process: ["direct energy deposition", "powder bed fusion"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux"]
+        }
+      },
+      {
+        name: "Comsom Multiphysics",
+        characteristics: {
+          process: ["direct energy deposition", "powder bed fusion"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "linux", "mac"]
+        }
+      },
+      {
+        name: "SolidEdge",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "SolidThinking Inspire",
+        characteristics: {
+          process: ["powder bed fusion", "material extrusion"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "mac"]
+        }
+      },
+      {
+        name: "Autodesk Fusion 360",
+        characteristics: {
+          process: ["powder bed fusion", "direct energy deposition"],
+          material: ["plastic", "metal"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows", "mac"]
+        }
+      },
+      {
+        name: "SolidCAM",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "Autodesk Moldflow",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      },
+      {
+        name: "HSMWorks",
+        characteristics: {
+          process: ["material extrusion"],
+          material: ["plastic"],
+          accuracy: ["low", "medium", "high"],
+          computation: ["small", "medium", "large"],
+	    license: ["free", "paid", "trial"],
+	    platform: ["windows"]
+        }
+      }
+    ];
+function findSoftware() {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+  if (checkboxes.length === 0) {
+    const resultElement = document.getElementById("result");
+    resultElement.style.backgroundColor = "red";
+    resultElement.textContent = "Please select at least one option.";
+    return;
+  }
+const criteria = {};
+  checkboxes.forEach(checkbox => {
+    if (!criteria[checkbox.name]) {
+      criteria[checkbox.name] = [];
+    }
+    criteria[checkbox.name].push(checkbox.value);
+  });
+  const matchingSoftware = softwareList.filter(software => {
+    for (const key in criteria) {
+      if (!criteria[key].every(value => software.characteristics[key].includes(value))) {
+        return false;
+      }
+    }
+    return true;
+  });
+  const resultElement = document.getElementById("result");
+  if (matchingSoftware.length > 0) {
+    resultElement.style.backgroundColor = "green";
+    resultElement.textContent = "Matching software: " + matchingSoftware.map(software => software.name).join(", ");
+  } else {
+    resultElement.style.backgroundColor = "red";
+    resultElement.textContent = "No matching software found.";
+  }
+}
+    function resetForm() {
+      const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      const resultElement = document.getElementById("result");
+      resultElement.textContent = "";
+      resultElement.style.backgroundColor = "initial";
+    }
+
+
+ </script>
+</body>
+</html>
